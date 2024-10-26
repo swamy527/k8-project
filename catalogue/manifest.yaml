@@ -25,7 +25,7 @@ spec:
         memory: "128Mi"
         cpu: "200m"
     envFrom:
-    - configmapRef:
+    - configMapRef:
         name: catalogue-config 
     ports:
     - containerPort: 8080
