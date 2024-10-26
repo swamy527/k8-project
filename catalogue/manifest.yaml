@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue-config
+data:
+   MONGO_URL: mongodb
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogue
+  labels:
+    name: catalogue
+    tier: backend
+spec:
+  containers:
+  - name: catalogue
+    imagePullPolicy: Always
+    image: dockerswaha/catalogue:k8
+    resources:
+    envFrom:
+    - configmapRef:
+        name: catalogue-config 
+    ports:
+    - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  selector:
+    name: catalogue
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
