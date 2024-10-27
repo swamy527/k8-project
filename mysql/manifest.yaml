@@ -1,20 +1,20 @@
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: mysql-secret
-# type: Opaque
-# data:
-#   MYSQL_USER: c2hpcHBpbmc=
-#   MYSQL_PASSWORD: c2VjcmV0
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  MYSQL_USER: c2hpcHBpbmc=
+  MYSQL_PASSWORD: c2VjcmV0
 
-# ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: mysql-config
-# data:
-#    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-#    MYSQL_DATABASE: cities
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+data:
+   MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+   MYSQL_DATABASE: cities
 ---
 apiVersion: v1
 kind: Pod
@@ -35,11 +35,11 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "200m"
-    # envFrom:
-    # - configMapRef:
-    #     name: mysql-config
-    # - secretRef:
-    #     name: mysql-secret
+    envFrom:
+    - configMapRef:
+        name: mysql-config
+    - secretRef:
+        name: mysql-secret
     ports:
     - containerPort: 3306
 
