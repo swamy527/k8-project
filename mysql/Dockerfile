@@ -1,4 +1,4 @@
-FROM mysql:8.4-oraclelinux9
+FROM mysql:5.7
 # VOLUME /data
 # ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes \
 #     MYSQL_DATABASE=cities
