@@ -13,7 +13,7 @@ kind: ConfigMap
 metadata:
   name: mysql-config
 data:
-   MYSQL_ROOT_PASSWORD: ramu
+   MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
    MYSQL_DATABASE: cities
 ---
 apiVersion: v1
