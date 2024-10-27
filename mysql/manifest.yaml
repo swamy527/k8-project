@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+type: Opaque
+data:
+  MYSQL_USER: c2hpcHBpbmc=
+  MYSQL_PASSWORD: c2VjcmV0
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+data:
+   MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+   MYSQL_DATABASE: cities
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+    tier: db
+spec:
+  containers:
+  - name: mysql
+    imagePullPolicy: Always
+    image: dockerswaha/mysql:k8
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "128Mi"
+        cpu: "200m"
+    envFrom:
+    - configMapRef:
+        name: mysql-config
+    - secretRef:
+        name: mysql-secret
+    ports:
+    - containerPort: 3306
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    name: mysql
+    tier: db
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3306
