@@ -10,13 +10,6 @@ spec:
   - name: redis
     imagePullPolicy: Always
     image: redis
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "100m"
-      limits:
-        memory: "128Mi"
-        cpu: "200m"
     ports:
     - containerPort: 6379
 
