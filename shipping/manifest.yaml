@@ -22,13 +22,6 @@ spec:
     envFrom:
     - configMapRef:
         name: shipping-config
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "128Mi"
-      limits:
-        cpu: "100m"
-        memory: "128Mi"
 ---
 apiVersion: v1
 kind: Service
