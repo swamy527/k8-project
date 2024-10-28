@@ -2,26 +2,26 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cart-config
+  name: shipping-config
 data:
-  REDIS_HOST: "redis"
-  CATALOGUE_HOST: "http://catalogue"
+  CART_ENDPOINT: "cart"
+  DB_HOST: "mysql"
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: cart
+  name: shipping
   labels:
-    name: cart
+    name: shipping
     tier: backend
 spec:
   containers:
-  - name: cart
+  - name: shipping
     imagePullPolicy: Always
-    image: dockerswaha/cart:k8
+    image: dockerswaha/shipping:k8
     envFrom:
     - configMapRef:
-        name: cart-config
+        name: shipping-config
     resources:
       requests:
         cpu: "100m"
@@ -33,10 +33,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cart
+  name: shipping
 spec:
   selector:
-    name: cart
+    name: shipping
     tier: backend
   ports:
     - protocol: TCP
