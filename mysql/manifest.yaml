@@ -28,13 +28,6 @@ spec:
   - name: mysql
     imagePullPolicy: Always
     image: dockerswaha/mysql:k8
-    resources:
-      requests:
-        memory: "64Mi"
-        cpu: "100m"
-      limits:
-        memory: "128Mi"
-        cpu: "200m"
     envFrom:
     - configMapRef:
         name: mysql-config
